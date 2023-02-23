@@ -2,7 +2,25 @@
 import { SITE_TITLE } from '../consts';
 ---
 
-<header class="h-80 p-2 pb-6 bg-stone-900 drop-shadow-2xl">
+<header id="large-header" class="h-screen bg-stone-900">
+  <div
+    id="small-header"
+    class="absolute bottom-0 sm:hidden h-20 p-6 w-full bg-stone-900 border border-green-400"
+  >
+    <span
+      id="small-header-title"
+      class="text-2xl text-white font-bold opacity-0 transition-opacity"
+    >
+      {SITE_TITLE}
+    </span>
+  </div>
+  <div
+    class="fixed top-6 right-6 flex flex-col items-center space-y-2 border border-green-400"
+  >
+    <div class="w-8 h-1 bg-white"></div>
+    <div class="w-10 h-1 bg-white"></div>
+    <div class="w-8 h-1 bg-white"></div>
+  </div>
   <h1
     class="text-4xl py-4 text-white tracking-wider font-bold border border-green-400"
   >
@@ -13,15 +31,7 @@ import { SITE_TITLE } from '../consts';
     <div class="i-ph-map-trifold-bold"></div>
     <div class="i-ph-bicycle-fill"></div>
   </div>
-
-  <div class="space-y-2 sm:hidden border border-green-400">
-    <div class="w-8 px-1 h-0.5 bg-white"></div>
-    <div class="w-8 h-0.5 bg-white"></div>
-    <div class="w-8 px-1 h-0.5 bg-white"></div>
-  </div>
-  <nav
-    class="text-xl uppercase text-white border border-green-400 hidden sm:block"
-  >
+  <nav class="text-xl uppercase text-white border border-green-400">
     <a href="#">Home</a>
     <a href="#bio">Bio</a>
     <a href="#skills">Skills</a>
@@ -37,3 +47,37 @@ import { SITE_TITLE } from '../consts';
     margin: 0.5em 0;
   }
 </style>
+
+<script>
+  const LARGE_HEADER_ID = 'large-header';
+  const SMALL_HEADER_ID = 'small-header';
+  const SMALL_HEADER_TITLE = 'small-header-title';
+  const inClasses = ['absolute', 'bottom-0'];
+  const outClasses = ['fixed', 'top-0'];
+  const toggleSmallHeader = (entries: IntersectionObserverEntry[]) => {
+    const [entry] = entries;
+    if (!entry) return;
+    const headerElement = document.getElementById(
+      SMALL_HEADER_ID
+    ) as HTMLDivElement;
+    const titleElement = document.getElementById(
+      SMALL_HEADER_TITLE
+    ) as HTMLSpanElement;
+    if (entry.isIntersecting) {
+      headerElement.classList.add(...inClasses);
+      headerElement.classList.remove(...outClasses);
+      titleElement.classList.add('opacity-0');
+      titleElement.classList.remove('opacity-100');
+    } else {
+      headerElement.classList.remove(...inClasses);
+      headerElement.classList.add(...outClasses);
+      titleElement.classList.remove('opacity-0');
+      titleElement.classList.add('opacity-100');
+    }
+  };
+
+  const observer = new IntersectionObserver(toggleSmallHeader, {
+    rootMargin: '-90px 0px -90px 0px',
+  });
+  observer.observe(document.getElementById(LARGE_HEADER_ID) as HTMLElement);
+</script>
