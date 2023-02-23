@@ -69,7 +69,49 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
     >
       <div class="space-y-2">
         <h2 class="text-2xl">Portfolio</h2>
-        <span>Work in progress, contact me for my latest work</span>
+        <div
+          class="card-tramod max-w-sm bg-contain border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+        >
+          <div class="h-50"></div>
+          <div class="p-5 bg-white/75">
+            <h5
+              class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+            >
+              Traffic Modeller
+            </h5>
+            <p class="mb-3">
+              <span
+                class="bg-yellow-100 text-yellow-800 border-yellow-800 border-1 font-medium mr-2 px-2.5 py-0.5 rounded"
+                >Work</span
+              >
+              <span
+                class="bg-indigo-100 text-indigo-800 border-indigo-800 border-1 font-medium mr-2 px-2.5 py-0.5 rounded"
+                >Vue</span
+              >
+              <span
+                class="bg-indigo-100 text-indigo-800 border-indigo-800 border-1 font-medium mr-2 px-2.5 py-0.5 rounded"
+                >OpenLayers</span
+              >
+            </p>
+            <p class="mb-3 font-bold text-gray-900 dark:text-gray-400">
+              Traffic models and data disply with heavy client side interactions
+            </p>
+            <a
+              href="#"
+              class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300"
+            >
+              <span class="text-xl i-ph-app-window-bold"></span>
+              <span class="ml-2">App</span>
+            </a>
+            <a
+              href="#"
+              class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300"
+            >
+              <span class="text-xl i-ph-code-bold"></span>
+              <span class="ml-2">Code</span>
+            </a>
+          </div>
+        </div>
       </div>
     </section>
     <section
@@ -91,5 +133,10 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
     <Footer
       class="grid place-items-center p-8 text-base md:text-lg text-center"
     />
+    <style>
+      .card-tramod {
+        background-image: url('PortfolioTramod.jpg');
+      }
+    </style>
   </body>
 </html>
