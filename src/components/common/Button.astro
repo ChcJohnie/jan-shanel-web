@@ -1,0 +1,48 @@
+---
+interface ButtonProps {
+  link?: string;
+  type: 'full' | 'text';
+  style: 'light' | 'dark' | 'plain';
+  iconClass?: string;
+  class: string;
+}
+type Props = Partial<ButtonProps>;
+
+const defaultOptions: ButtonProps = {
+  type: 'full',
+  style: 'light',
+  class: '',
+};
+const props = Astro.props;
+
+const options: ButtonProps = {
+  ...defaultOptions,
+  ...props,
+};
+
+const Tag = options.link ? 'a' : 'button';
+
+const baseClass =
+  'inline-flex items-center text-sm font-medium text-center px-4 py-2';
+const fullClass = 'rounded-lg';
+
+const styleClass = {
+  dark: 'text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300',
+  light:
+    'text-black  bg-green-300 hover:bg-green-200 focus:ring-4 focus:outline-none focus:ring-green-700',
+  plain: '',
+};
+
+const classes = [
+  baseClass,
+  options.type === 'full' ? fullClass : '',
+  styleClass[options.style],
+  options.class,
+];
+const finalClass = classes.join(' ');
+---
+
+<Tag href={props.link} class={finalClass}>
+  {props.iconClass && <span class={props.iconClass} />}
+  <slot />
+</Tag>

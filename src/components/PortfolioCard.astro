@@ -1,5 +1,6 @@
 ---
 import Badge from './common/Badge.astro';
+import BaseButton from '../components/common/Button.astro';
 
 import type { Portfolio } from '../types/Portfolio';
 interface Props {
@@ -41,16 +42,17 @@ const cardImageUrl = `url("${portfolio.imageUrl}")`;
     }
     {
       portfolio.anchors && (
-        <div class="space-y-2">
+        <div class="flex flex-wrap justify-center gap-2">
           {portfolio.anchors.map((anchor) => (
-            <a href={anchor.url}>
-              <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300">
-                <span class:list={['text-xl', anchorIcons[anchor.type]]} />
-                <span class="ml-2 capitalize">
-                  {anchor.text ? anchor.text : anchor.type}
-                </span>
-              </button>
-            </a>
+            <BaseButton
+              link={anchor.url}
+              style="dark"
+              iconClass={'text-xl ' + anchorIcons[anchor.type]}
+            >
+              <span class="ml-2 capitalize">
+                {anchor.text ? anchor.text : anchor.type}
+              </span>
+            </BaseButton>
           ))}
         </div>
       )

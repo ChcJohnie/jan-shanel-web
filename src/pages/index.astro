@@ -5,6 +5,8 @@ import PortfolioCard from '../components/PortfolioCard.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
+import BaseButton from '../components/common/Button.astro';
+
 import type { Portfolio } from '../types/Portfolio';
 
 const portfolios: Portfolio[] = [
@@ -127,17 +129,19 @@ const portfolios: Portfolio[] = [
       class="grid place-items-center p-8 text-base md:text-lg text-center"
     >
       <h2 class="mb-4 text-2xl font-bold">Contact</h2>
-      <div class="flex justify-items-center space-x-4">
-        <a href="https://github.com/ChcJohnie"
-          ><span class="text-4xl i-ph-github-logo hover:i-ph-github-logo-fill"
-          ></span></a
-        >
-
-        <a href="https://www.linkedin.com/in/jan-sháněl-b4abab131/"
-          ><span
-            class="text-4xl i-ph-linkedin-logo hover:i-ph-linkedin-logo-fill"
-          ></span></a
-        >
+      <div class="flex justify-items-center">
+        <BaseButton
+          link="https://github.com/ChcJohnie"
+          type="text"
+          style="plain"
+          iconClass="text-4xl i-ph-github-logo hover:i-ph-github-logo-fill"
+        />
+        <BaseButton
+          link="https://www.linkedin.com/in/jan-sháněl-b4abab131/"
+          type="text"
+          style="plain"
+          iconClass="text-4xl i-ph-linkedin-logo hover:i-ph-linkedin-logo-fill"
+        />
       </div>
     </section>
 
