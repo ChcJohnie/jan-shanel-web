@@ -19,13 +19,27 @@ const portfolios: Portfolio[] = [
     ],
     anchors: [
       {
-        text: 'App',
         url: 'https://plzen.trafficmodeller.com',
         type: 'app',
       },
       {
         text: 'Code (partial, no history)',
         url: 'https://gitlab.com/tramod/webapp-client-dta',
+        type: 'code',
+      },
+    ],
+  },
+  {
+    imageUrl: '/PortfolioSite.jpg',
+    title: 'My website',
+    badges: [
+      { text: 'Personal', type: 'primary' },
+      { text: 'ASTRO', type: 'secondary' },
+      { text: 'Tailwind', type: 'secondary' },
+    ],
+    anchors: [
+      {
+        url: 'https://github.com/ChcJohnie/jan-shanel-web',
         type: 'code',
       },
     ],
@@ -104,7 +118,9 @@ const portfolios: Portfolio[] = [
       class="grid place-items-center p-8 text-base md:text-lg text-center"
     >
       <h2 class="mb-4 text-2xl font-bold">Portfolio</h2>
-      {portfolios.map((portfolio) => <PortfolioCard portfolio={portfolio} />)}
+      <div class="grid lg:grid-cols-2 2xl:grid-cols-3 gap-8">
+        {portfolios.map((portfolio) => <PortfolioCard portfolio={portfolio} />)}
+      </div>
     </section>
     <section
       id="contact"
