@@ -1,8 +1,36 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
+import PortfolioCard from '../components/PortfolioCard.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+import type { Portfolio } from '../types/Portfolio';
+
+const portfolios: Portfolio[] = [
+  {
+    imageUrl: '/PortfolioTramod.jpg',
+    title: 'Traffic Modeller',
+    info: 'Traffic models and data display with heavy client side interactions',
+    badges: [
+      { text: 'Work', type: 'primary' },
+      { text: 'Vue3', type: 'secondary' },
+      { text: 'OpenLayers', type: 'secondary' },
+    ],
+    anchors: [
+      {
+        text: 'App',
+        url: 'https://plzen.trafficmodeller.com',
+        type: 'app',
+      },
+      {
+        text: 'Code (partial, no history)',
+        url: 'https://gitlab.com/tramod/webapp-client-dta',
+        type: 'code',
+      },
+    ],
+  },
+];
 ---
 
 <!DOCTYPE html>
@@ -76,47 +104,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
       class="grid place-items-center p-8 text-base md:text-lg text-center"
     >
       <h2 class="mb-4 text-2xl font-bold">Portfolio</h2>
-      <div
-        class="card-tramod max-w-sm bg-contain border border-gray-200 rounded-lg shadow"
-      >
-        <div class="h-50"></div>
-        <div class="p-5 bg-white/75">
-          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-            Traffic Modeller
-          </h5>
-          <p class="mb-3">
-            <span
-              class="bg-yellow-100 text-yellow-800 border-yellow-800 border-1 font-medium mr-2 px-2.5 py-0.5 rounded"
-              >Work</span
-            >
-            <span
-              class="bg-indigo-100 text-indigo-800 border-indigo-800 border-1 font-medium mr-2 px-2.5 py-0.5 rounded"
-              >Vue</span
-            >
-            <span
-              class="bg-indigo-100 text-indigo-800 border-indigo-800 border-1 font-medium mr-2 px-2.5 py-0.5 rounded"
-              >OpenLayers</span
-            >
-          </p>
-          <p class="mb-3 font-bold text-gray-900">
-            Traffic models and data display with heavy client side interactions
-          </p>
-          <a
-            href="https://plzen.trafficmodeller.com"
-            class="inline-flex items-center m-1 px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300"
-          >
-            <span class="text-xl i-ph-app-window-bold"></span>
-            <span class="ml-2">App</span>
-          </a>
-          <a
-            href="https://gitlab.com/tramod/webapp-client-dta"
-            class="inline-flex items-center m-1 px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300"
-          >
-            <span class="text-xl i-ph-code-bold"></span>
-            <span class="ml-2">Code (partial, no history)</span>
-          </a>
-        </div>
-      </div>
+      {portfolios.map((portfolio) => <PortfolioCard portfolio={portfolio} />)}
     </section>
     <section
       id="contact"
@@ -140,10 +128,5 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
     <Footer
       class="grid place-items-center p-8 text-base md:text-lg text-center"
     />
-    <style>
-      .card-tramod {
-        background-image: url('/PortfolioTramod.jpg');
-      }
-    </style>
   </body>
 </html>
