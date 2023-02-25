@@ -10,7 +10,7 @@ import BaseButton from '../components/common/Button.astro';
 >
   <div
     id="small-header"
-    class="absolute bottom-0 md:hidden h-20 p-6 w-full bg-stone-900"
+    class="absolute bottom-0 h-20 md:h-12 p-6 md:p-2 w-full bg-stone-900"
   >
     <span
       id="small-header-title"
@@ -55,7 +55,7 @@ import BaseButton from '../components/common/Button.astro';
     <BaseButton link="#contact" style="light">Contact me</BaseButton>
   </div>
   <nav
-    class="fixed top-20 right-0 flex flex-col justify-end bg-slate-100 rounded-bl border-b border-l border-slate-800 invisible transition-[visibility] transition-duration-300 md:visible md:top-0 md:flex-row md:w-full md:rounded-none md:bg-stone-900"
+    class="fixed top-20 right-0 flex flex-col justify-end bg-slate-100 rounded-bl border-b border-l border-slate-800 invisible transition-[visibility] transition-duration-300 md:visible md:top-0 md:w-3/4 md:flex-row md:rounded-none md:border-0 md:bg-stone-900"
   >
     <BaseButton
       link="#about"
