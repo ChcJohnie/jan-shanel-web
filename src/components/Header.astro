@@ -2,34 +2,25 @@
 import { SITE_TITLE } from '../consts';
 
 import BaseButton from '../components/common/Button.astro';
+import FixedHeader from '../components/header/FixedHeader.astro';
+import MobileMenuButton from '../components/header/MobileMenuButton.astro';
+import Navigation from '../components/header/Navigation.astro';
 ---
 
 <header
   id="large-header"
   class="h-screen bg-stone-900 text-slate-100 grid header-grid pb-20 md:pb-12"
 >
-  <div
-    id="small-header"
-    class="absolute bottom-0 h-20 md:h-12 p-6 md:p-2 w-full bg-stone-900"
+  <FixedHeader
+    class="h-20 md:h-12 p-6 md:p-2 w-full md:w-auto bg-stone-900 md:bg-transparent z-2"
+    unfixedClass="absolute bottom-0"
+    fixedClass="fixed top-0"
+    mainHeaderId="large-header"
   >
-    <span
-      id="small-header-title"
-      class="text-2xl font-bold opacity-0 transition-opacity"
-    >
-      {SITE_TITLE}
-    </span>
-  </div>
-  <button
-    id="hamburger-menu"
-    class="fixed top-4 right-4 md:hidden flex flex-col items-center space-y-2 p-2"
-  >
-    <span
-      class="w-8 h-1 bg-white active:drop-shadow-lg active:shadow-green-400"
-    >
-    </span>
-    <span class="w-10 h-1 bg-white"></span>
-    <span class="w-8 h-1 bg-white"></span>
-  </button>
+    {SITE_TITLE}
+  </FixedHeader>
+  <MobileMenuButton class="fixed top-4 right-4 z-3" />
+
   <h1
     class="flex flex-col justify-end items-center text-4xl pb-12 tracking-widest font-bold"
   >
@@ -54,94 +45,10 @@ import BaseButton from '../components/common/Button.astro';
   <div class="grid place-content-center p-4">
     <BaseButton link="#contact" style="light">Contact me</BaseButton>
   </div>
-  <nav
-    class="fixed top-20 right-0 flex flex-col justify-end bg-slate-100 rounded-bl border-b border-l border-slate-800 invisible transition-[visibility] transition-duration-300 md:visible md:top-0 md:w-3/4 md:flex-row md:rounded-none md:border-0 md:bg-stone-900"
-  >
-    <BaseButton
-      link="#about"
-      type="text"
-      style="plain"
-      class="text-xl uppercase justify-end text-black hover:text-green-700 md:text-slate-100 md:hover:text-green-300"
-    >
-      About
-    </BaseButton>
-    <BaseButton
-      link="#skills"
-      type="text"
-      style="plain"
-      class="text-xl uppercase justify-end text-black hover:text-green-700 md:text-slate-100 md:hover:text-green-300"
-    >
-      Skills
-    </BaseButton>
-    <BaseButton
-      link="#portfolio"
-      type="text"
-      style="plain"
-      class="text-xl uppercase justify-end text-black hover:text-green-700 md:text-slate-100 md:hover:text-green-300"
-    >
-      Portfolio
-    </BaseButton>
-    <BaseButton
-      link="#contact"
-      type="text"
-      style="plain"
-      class="text-xl uppercase justify-end text-black hover:text-green-700 md:text-slate-100 md:hover:text-green-300"
-    >
-      Contact
-    </BaseButton>
-  </nav>
+  <Navigation class="fixed top-20 right-0 md:top-0 md:w-full" />
 </header>
 <style>
   .header-grid {
     grid-template-rows: 3fr 2fr auto;
   }
 </style>
-
-<script>
-  const LARGE_HEADER_ID = 'large-header';
-  const SMALL_HEADER_ID = 'small-header';
-  const SMALL_HEADER_TITLE = 'small-header-title';
-  const inClasses = ['absolute', 'bottom-0'];
-  const outClasses = ['fixed', 'top-0'];
-  const toggleSmallHeader = (entries: IntersectionObserverEntry[]) => {
-    const [entry] = entries;
-    if (!entry) return;
-    const headerElement = document.getElementById(
-      SMALL_HEADER_ID
-    ) as HTMLDivElement;
-    const titleElement = document.getElementById(
-      SMALL_HEADER_TITLE
-    ) as HTMLSpanElement;
-    if (entry.isIntersecting) {
-      headerElement.classList.add(...inClasses);
-      headerElement.classList.remove(...outClasses);
-      titleElement.classList.add('opacity-0');
-      titleElement.classList.remove('opacity-100');
-    } else {
-      headerElement.classList.remove(...inClasses);
-      headerElement.classList.add(...outClasses);
-      titleElement.classList.remove('opacity-0');
-      titleElement.classList.add('opacity-100');
-    }
-  };
-
-  const observer = new IntersectionObserver(toggleSmallHeader, {
-    rootMargin: '-90px 0px -90px 0px',
-  });
-  observer.observe(document.getElementById(LARGE_HEADER_ID) as HTMLElement);
-
-  const navElement = document.querySelector('nav') as HTMLDivElement;
-  let isToggledByHamburger = false;
-  const toggleMobileMenu = () => {
-    navElement.classList.toggle('invisible');
-    isToggledByHamburger = !isToggledByHamburger;
-  };
-
-  document
-    .getElementById('hamburger-menu')
-    ?.addEventListener('click', toggleMobileMenu);
-  navElement.addEventListener('click', () => {
-    if (!isToggledByHamburger) return;
-    toggleMobileMenu();
-  });
-</script>

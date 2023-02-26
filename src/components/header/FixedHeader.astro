@@ -1,0 +1,67 @@
+---
+interface Props {
+  class: string;
+  mainHeaderId: string;
+  unfixedClass: string;
+  fixedClass: string;
+}
+
+const {
+  class: baseClass,
+  mainHeaderId,
+  unfixedClass,
+  fixedClass,
+} = Astro.props;
+---
+
+<div
+  id="small-header"
+  class={baseClass}
+  data-main-header-id={mainHeaderId}
+  data-unfixed-class={unfixedClass}
+  data-fixed-class={fixedClass}
+>
+  <span
+    id="small-header-title"
+    class="text-2xl font-bold opacity-0 transition-opacity"
+  >
+    <slot />
+  </span>
+</div>
+
+<script>
+  const SMALL_HEADER_ID = 'small-header';
+
+  const headerElement = document.getElementById(
+    SMALL_HEADER_ID
+  ) as HTMLDivElement;
+  const titleElement = headerElement.firstElementChild as HTMLSpanElement;
+  const { mainHeaderId, unfixedClass, fixedClass } = headerElement.dataset as {
+    mainHeaderId: string;
+    unfixedClass: string;
+    fixedClass: string;
+  };
+  const unfixedClassArray = unfixedClass.split(' ');
+  const fixedClassArray = fixedClass.split(' ');
+
+  const toggleSmallHeader = (entries: IntersectionObserverEntry[]) => {
+    const [entry] = entries;
+    if (!entry) return;
+    if (entry.isIntersecting) {
+      headerElement.classList.add(...unfixedClassArray);
+      headerElement.classList.remove(...fixedClassArray);
+      titleElement.classList.add('opacity-0');
+      titleElement.classList.remove('opacity-100');
+    } else {
+      headerElement.classList.remove(...unfixedClassArray);
+      headerElement.classList.add(...fixedClassArray);
+      titleElement.classList.remove('opacity-0');
+      titleElement.classList.add('opacity-100');
+    }
+  };
+
+  const observer = new IntersectionObserver(toggleSmallHeader, {
+    rootMargin: '-90px 0px -90px 0px',
+  });
+  observer.observe(document.getElementById(mainHeaderId) as HTMLElement);
+</script>

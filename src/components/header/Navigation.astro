@@ -1,0 +1,48 @@
+---
+import BaseButton from '../common/Button.astro';
+
+interface Props {
+  class: string;
+}
+
+const props = Astro.props;
+
+const links = [
+  {
+    link: '#about',
+    text: 'About',
+  },
+  {
+    link: '#skills',
+    text: 'Skills',
+  },
+  {
+    link: '#portfolio',
+    text: 'Portfolio',
+  },
+  {
+    link: '#contact',
+    text: 'Contact',
+  },
+];
+---
+
+<nav
+  class:list={[
+    'flex flex-col justify-end bg-slate-100 rounded-bl border-b border-l border-slate-800 invisible transition-[visibility] transition-duration-300 md:visible  md:flex-row md:rounded-none md:border-0 md:bg-stone-900',
+    props.class,
+  ]}
+>
+  {
+    links.map((link) => (
+      <BaseButton
+        link={link.link}
+        type="text"
+        style="plain"
+        class="text-xl uppercase justify-end text-black hover:text-green-700 md:text-slate-100 md:hover:text-green-300"
+      >
+        {link.text}
+      </BaseButton>
+    ))
+  }
+</nav>

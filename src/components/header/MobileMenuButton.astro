@@ -1,0 +1,42 @@
+---
+interface Props {
+  class: string;
+}
+
+const props = Astro.props;
+---
+
+<button
+  id="hamburger-menu"
+  class:list={[
+    'md:hidden flex flex-col items-center space-y-2 p-2',
+    props.class,
+  ]}
+>
+  <span class="w-8 h-1 bg-white active:drop-shadow-lg active:shadow-green-400">
+  </span>
+  <span class="w-10 h-1 bg-white"></span>
+  <span class="w-8 h-1 bg-white"></span>
+</button>
+
+<script>
+  const buttonElement = document.getElementById(
+    'hamburger-menu'
+  ) as HTMLButtonElement;
+  const navElement = document.querySelector('nav') as
+    | HTMLDivElement
+    | undefined;
+  if (!navElement) throw new Error('MobileMenuButton: No nav element found!');
+
+  let isToggledByHamburger = false;
+  const toggleMobileMenu = () => {
+    navElement.classList.toggle('invisible');
+    isToggledByHamburger = !isToggledByHamburger;
+  };
+
+  buttonElement.addEventListener('click', toggleMobileMenu);
+  navElement.addEventListener('click', () => {
+    if (!isToggledByHamburger) return;
+    toggleMobileMenu();
+  });
+</script>
